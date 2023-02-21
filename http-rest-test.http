@@ -1,0 +1,33 @@
+### Check version
+GET {{host}}/version
+
+> {%
+    client.test("proper teamcity version", function() {
+        client.assert(response.status === 200);
+        client.assert(response.body.trim() === "125011");
+    });
+%}
+
+### All projects
+GET https://tests.teamcity.com/app/rest/projects
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Clean-Up TeamCity instance
+DELETE https://tests.teamcity.com/app/rest/projects/id:TestProject
+Authorization: Bearer {{token}}
+
+### Create project
+POST {{host}}/projects/id:TestProject
+Authorization: Bearer {{token}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "parentProject": {
+    "locator": "_Root"
+  },
+  "name": "test321",
+  "description": "description321",
+  "id": "id321"
+}
