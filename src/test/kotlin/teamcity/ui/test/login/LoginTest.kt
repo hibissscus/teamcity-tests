@@ -1,23 +1,25 @@
 package teamcity.ui.test.login
 
 import com.codeborne.selenide.Condition
+import com.codeborne.selenide.Configuration.baseUrl
 import com.codeborne.selenide.Selenide.open
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 import teamcity.ui.model.User
 import teamcity.ui.pages.LoginPage
-import teamcity.ui.pages.MainPage
+import teamcity.ui.pages.ProjectPage
 import teamcity.ui.test.UITestBase
 
 @Test(groups = ["login"])
 class LoginTest : UITestBase() {
 
     private val loginPage = LoginPage()
-    private val mainPage = MainPage()
+    private val projectPage = ProjectPage()
 
     @BeforeMethod
-    fun setUp() {
-        open("https://tests.teamcity.com/")
+    fun beforeClass() {
+        this.selenide()
+        open(baseUrl)
     }
 
     @Test
@@ -55,6 +57,12 @@ class LoginTest : UITestBase() {
     @Test(priority = 1)
     fun login() {
         loginPage.login(User.KING)
-        mainPage.imageAvatar.shouldBe(Condition.visible)
+        projectPage.imageAvatar.shouldBe(Condition.visible)
+    }
+
+    @Test(dependsOnMethods = ["login"])
+    fun logout() {
+        projectPage.logout()
+        loginPage.username.shouldHave(Condition.visible)
     }
 }
