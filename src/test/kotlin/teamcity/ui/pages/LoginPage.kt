@@ -11,6 +11,7 @@ class LoginPage {
     val password = element("input[id='password']")
     val remember = element("input[id='remember']")
     val errorMessage = element("div[id='errorMessage']")
+    val imageAvatar = element("img[data-test='avatar']")
 
     fun clear() {
         username.clear()
@@ -29,6 +30,7 @@ class LoginPage {
 
     fun login(user: User) {
         login(user.username, user.password)
+        imageAvatar.shouldHave(Condition.visible)
     }
 
 }

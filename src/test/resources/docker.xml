@@ -7,9 +7,11 @@
             <package name="teamcity.rest.configuration"/>
         </packages>
     </test>
-    <test parallel="classes" name="teamcity.ui" thread-count="1">
+    <test parallel="classes" name="teamcity.ui" thread-count="2">
         <packages>
             <package name="teamcity.ui.test.login"/>
+            <package name="teamcity.ui.test.admin"/>
+            <package name="teamcity.ui.test.navigation"/>
         </packages>
     </test>
 </suite>

@@ -22,8 +22,9 @@ repositories {
     maven { setUrl("https://packages.jetbrains.team/maven/p/teamcity-rest-client/teamcity-rest-client") }
 }
 
-val testngVersion = "6.11.2"
-val selenideVersion = "6.11.2"
+val restAssuredVersion = "5.3.0"
+val testngVersion = "7.7.1"
+val selenideVersion = "6.12.2"
 val allureVersion = "2.21.0"
 
 dependencies {
@@ -44,12 +45,12 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.testng:testng:$testngVersion")
+    testImplementation("io.rest-assured:rest-assured:$restAssuredVersion")
     testImplementation("org.slf4j:slf4j-log4j12:1.7.36")
     testImplementation("org.assertj:assertj-core:3.24.2")
 
     // UI tests
-    testImplementation("com.codeborne:selenide:$selenideVersion")
-    testImplementation("com.codeborne:selenide-testng:$testngVersion")
+    testImplementation("com.codeborne:selenide-testng:$selenideVersion")
 
     // Reporting
     testImplementation("io.qameta.allure:allure-testng:$allureVersion")
@@ -80,12 +81,14 @@ fun Test.testNG(desc: String, suite: String, reportngTitle: String = "test") {
     }
 }
 
-tasks.withType(Test::class) {
-    testNG("run entire test suite locally", "src/test/resources/local.xml", "teamcity-tests-local")
+tasks {
+    test {
+        testNG("run entire test suite locally", "src/test/resources/local.xml", "teamcity-tests-local")
+    }
 }
 
 tasks.register<Test>("docker") {
-    testNG("run entire test suite locally", "src/test/resources/docker.xml", "teamcity-tests-docker")
+    testNG("run entire test suite in docker", "src/test/resources/docker.xml", "teamcity-tests-docker")
 }
 
 allure {
