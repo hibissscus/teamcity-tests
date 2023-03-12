@@ -112,5 +112,4 @@ dockerCompose {
     )
     stopContainers.set(false)
     isRequiredBy(tasks.getByName("docker"))
-    isRequiredBy(tasks.getByName("test"))
 }
