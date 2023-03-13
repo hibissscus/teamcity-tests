@@ -60,6 +60,8 @@ val testUserHibissscus = User(
     "hibissscus@gmail.com"
 )
 val testBuildConfiguration = BuildConfiguration(testProject.id, 0, BuildConfigurationId("TeamcityTests_Test"), "Run Tests")
+val testBuildRunConfiguration =
+    BuildConfiguration(testProject.id, 0, BuildConfigurationId("TeamcityTests_TestProjectForRestBuild"), "TestProjectForRest_Build")
 
 
 val reportProject = ProjectId("ProjectForReports")

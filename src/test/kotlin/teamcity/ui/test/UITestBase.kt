@@ -13,7 +13,7 @@ open class UITestBase {
     @Parameters("selenide.baseUrl", "selenide.remote", "selenide.headless")
     fun selenide(
         @Optional("") optBaseUrl: String = "https://tests.teamcity.com",
-        @Optional("") optRemote: String = "http://localhost:4444",
+        @Optional("") optRemote: String = "",
         @Optional("") optHeadless: String = "false"
     ) {
         if (!Strings.isNullOrEmpty(optBaseUrl)) Configuration.baseUrl = optBaseUrl

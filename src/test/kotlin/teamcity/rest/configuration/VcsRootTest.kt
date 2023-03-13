@@ -3,11 +3,13 @@ package teamcity.rest.configuration
 import org.jetbrains.teamcity.rest.VcsRootId
 import org.jetbrains.teamcity.rest.VcsRootLocator
 import org.testng.annotations.Test
+import teamcity.rest.TestBase
 import teamcity.rest.customInstanceByConnectionFile
 import teamcity.rest.testProjectVcs
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
+@Test(groups = ["configuration"])
 class VcsRootTest : TestBase() {
 
     @Test

@@ -1,12 +1,14 @@
 package teamcity.rest.configuration
 
 import org.testng.annotations.Test
+import teamcity.rest.TestBase
 import teamcity.rest.publicInstanceUrl
 import teamcity.rest.testBuildConfiguration
 import teamcity.rest.testProject
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
+@Test(groups = ["configuration"])
 class ProjectTest : TestBase() {
 
     @Test

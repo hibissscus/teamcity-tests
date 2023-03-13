@@ -1,7 +1,7 @@
 package teamcity.ui.test.navigation
 
 import com.codeborne.selenide.Condition
-import com.codeborne.selenide.Configuration
+import com.codeborne.selenide.Configuration.baseUrl
 import com.codeborne.selenide.Selenide.open
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.Test
@@ -21,31 +21,31 @@ class NavigationTest : UITestBase() {
     @BeforeClass
     fun setUp() {
         this.selenide()
-        open(Configuration.baseUrl)
+        open(baseUrl)
         loginPage.login(User.KING)
     }
 
     @Test
     fun `can open agents page`() {
-        open(Configuration.baseUrl + agentsPage.pageUrl)
+        open(baseUrl + agentsPage.pageUrl)
         agentsPage.overview.shouldHave(Condition.visible)
     }
 
     @Test
     fun `can open changes page`() {
-        open(Configuration.baseUrl + changesPage.pageUrl)
+        open(baseUrl + changesPage.pageUrl)
         changesPage.h1Changes.shouldHave(Condition.visible)
     }
 
     @Test
     fun `can open project page`() {
-        open(Configuration.baseUrl + projectPage.pageUrl)
+        open(baseUrl + projectPage.pageUrl)
         projectPage.allProjects.shouldHave(Condition.visible)
     }
 
     @Test
     fun `can open queue page`() {
-        open(Configuration.baseUrl + queuePage.pageUrl)
+        open(baseUrl + queuePage.pageUrl)
         queuePage.allPools.shouldHave(Condition.visible)
     }
 }

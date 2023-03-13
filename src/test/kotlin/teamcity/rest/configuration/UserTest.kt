@@ -2,10 +2,12 @@ package teamcity.rest.configuration
 
 import org.jetbrains.teamcity.rest.UserId
 import org.testng.annotations.Test
+import teamcity.rest.TestBase
 import teamcity.rest.testUserHibissscus
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@Test(groups = ["configuration"])
 class UserTest : TestBase() {
 
     @Test

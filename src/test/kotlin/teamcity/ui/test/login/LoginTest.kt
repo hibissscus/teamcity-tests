@@ -3,7 +3,8 @@ package teamcity.ui.test.login
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Configuration.baseUrl
 import com.codeborne.selenide.Selenide.open
-import org.testng.annotations.BeforeMethod
+import org.testng.annotations.BeforeClass
+import org.testng.annotations.Listeners
 import org.testng.annotations.Test
 import teamcity.ui.model.User
 import teamcity.ui.pages.LoginPage
@@ -11,12 +12,13 @@ import teamcity.ui.pages.ProjectPage
 import teamcity.ui.test.UITestBase
 
 @Test(groups = ["login"])
+@Listeners(value = [testee.it.reportng.HTMLReporter::class])
 class LoginTest : UITestBase() {
 
     private val loginPage = LoginPage()
     private val projectPage = ProjectPage()
 
-    @BeforeMethod
+    @BeforeClass
     fun beforeClass() {
         this.selenide()
         open(baseUrl)
@@ -44,6 +46,8 @@ class LoginTest : UITestBase() {
 
     @Test
     fun `login with wrong password`() {
+        loginPage.username.clear()
+        loginPage.password.clear()
         loginPage.username.sendKeys("username")
         loginPage.username.shouldHave(Condition.attribute("value", "username"))
         repeat(7) {
@@ -56,6 +60,8 @@ class LoginTest : UITestBase() {
 
     @Test(priority = 1)
     fun login() {
+        loginPage.username.clear()
+        loginPage.password.clear()
         loginPage.login(User.KING)
         projectPage.imageAvatar.shouldBe(Condition.visible)
     }

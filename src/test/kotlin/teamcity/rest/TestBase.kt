@@ -1,12 +1,8 @@
-package teamcity.rest.configuration
+package teamcity.rest
 
 import org.jetbrains.teamcity.rest.TeamCityInstance
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.BeforeSuite
-import teamcity.rest.customInstanceByConnectionFile
-import teamcity.rest.haveCustomInstance
-import teamcity.rest.publicInstance
-import teamcity.rest.setupLog4jDebug
 import kotlin.test.assertTrue
 
 open class TestBase {

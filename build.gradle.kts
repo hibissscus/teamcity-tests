@@ -29,30 +29,25 @@ val allureVersion = "2.21.0"
 
 dependencies {
     // kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    // selenium
-    implementation("org.seleniumhq.selenium:selenium-java:4.8.1")
-    // testee
-    implementation("com.github.hibissscus:testee:1.6.8")
-    // reportng
-    implementation("com.github.hibissscus:reportng:1.5.3")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib")
+    testImplementation("org.jetbrains.kotlin:kotlin-reflect")
     // teamcity-rest-client
-    implementation("org.jetbrains.teamcity:teamcity-rest-client:1.18.0")
+    testImplementation("org.jetbrains.teamcity:teamcity-rest-client:1.18.0")
     // slf4j
-    implementation("org.slf4j:slf4j-api:1.7.36")
+    testImplementation("org.slf4j:slf4j-api:1.7.36")
+    testImplementation("org.slf4j:slf4j-log4j12:1.7.36")
 
     // General testing
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.testng:testng:$testngVersion")
     testImplementation("io.rest-assured:rest-assured:$restAssuredVersion")
-    testImplementation("org.slf4j:slf4j-log4j12:1.7.36")
     testImplementation("org.assertj:assertj-core:3.24.2")
 
     // UI tests
     testImplementation("com.codeborne:selenide-testng:$selenideVersion")
 
     // Reporting
+    testImplementation("com.github.hibissscus:reportng:1.5.3")
     testImplementation("io.qameta.allure:allure-testng:$allureVersion")
     testImplementation("io.qameta.allure:allure-java-commons:${allureVersion}")
     testImplementation("io.qameta.allure:allure-attachments:${allureVersion}")
