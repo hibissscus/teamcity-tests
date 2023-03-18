@@ -8,9 +8,9 @@ import kotlin.test.assertTrue
 class BuildProblemTest : BuildTestBase() {
 
     @Test
-    fun `fetch problems`() {
+    fun `build problem exist`() {
         val defaultBuildRunError = defaultBuildRunError()
-        awaitState(defaultBuildRunError.id, BuildState.FINISHED, 30000L)
+        awaitState(defaultBuildRunError.id, BuildState.FINISHED, 60000L)
         val buildProblems = teamCityInstance.build(defaultBuildRunError.id).buildProblems
         assertTrue(buildProblems.any())
     }

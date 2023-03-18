@@ -1,8 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite verbose="1" configfailurepolicy="continue" thread-count="3" parallel="tests" name="teamcity-tests">
+<suite verbose="1" configfailurepolicy="continue" thread-count="10" parallel="tests" name="teamcity-tests">
     <parameter name="selenide.remote" value="http://localhost:4444"/>
     <parameter name="selenide.headless" value="true"/>
-    <test parallel="classes" name="teamcity.rest.configuration" thread-count="1">
+    <test parallel="classes" name="teamcity.rest.build" thread-count="3">
+        <packages>
+            <package name="teamcity.rest.build"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="teamcity.rest.configuration" thread-count="3">
         <packages>
             <package name="teamcity.rest.configuration"/>
         </packages>
