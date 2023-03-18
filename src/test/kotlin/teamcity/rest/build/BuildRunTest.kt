@@ -27,7 +27,7 @@ class BuildRunTest : TestBase() {
 
     @Test
     fun `run build with parameters`() {
-        val triggeredBuild = customInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
+        val triggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
             parameters = mapOf("a" to "b"),
             agentId = null, revisions = null, dependencies = null
         )
@@ -53,13 +53,13 @@ class BuildRunTest : TestBase() {
 
     @Test
     fun `trigger build from other build`() {
-        val triggeredBuild = customInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
+        val triggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
             parameters = mapOf("a" to "b"),
             agentId = null, revisions = null, dependencies = null
         )
         val build = getBuild(triggeredBuild.id)
 
-        val newTriggeredBuild = customInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
+        val newTriggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
             parameters = build.parameters.associate { it.name to it.value },
             agentId = null, revisions = null, dependencies = null
         )
@@ -75,7 +75,7 @@ class BuildRunTest : TestBase() {
         var state: BuildState? = null
         while (buildState != state && System.currentTimeMillis() - curTime < timeoutMsec) {
             try {
-                b = customInstance.build(id)
+                b = teamCityInstance.build(id)
                 state = b.state
             } catch (_: KotlinNullPointerException) {
             }
@@ -88,7 +88,7 @@ class BuildRunTest : TestBase() {
     }
 
     private fun customBuildRun(): Build {
-        return customInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(null, false, null, false, null, null, null, false, null, null)
+        return teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(null, false, null, false, null, null, null, false, null, null)
 
     }
 
@@ -101,7 +101,7 @@ class BuildRunTest : TestBase() {
 
         while (!flag && attempts-- > 0) {
             try {
-                b = customInstance.build(id)
+                b = teamCityInstance.build(id)
                 buildStatus = b.status
                 flag = true
             } catch (e: KotlinNullPointerException) {

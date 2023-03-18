@@ -19,7 +19,7 @@ class BuildAgentTest : TestBase() {
 
     @Test
     fun `compatible with configuration`() {
-        val compatibleAgents = customInstance.buildAgents()
+        val compatibleAgents = teamCityInstance.buildAgents()
             .compatibleWith(testBuildRunConfiguration.id)
             .all()
 

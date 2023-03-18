@@ -41,7 +41,7 @@ class VcsRootTest : TestBase() {
     }
 
     private fun vcsRoots(): VcsRootLocator {
-        return customInstance.vcsRoots()
+        return teamCityInstance.vcsRoots()
     }
 
 }

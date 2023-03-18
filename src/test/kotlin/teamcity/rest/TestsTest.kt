@@ -7,7 +7,7 @@ class TestsTest : TestBase() {
 
     @Test
     fun `test deprecated list tests`() {
-        val tests = customInstance.builds()
+        val tests = teamCityInstance.builds()
             .fromConfiguration(testBuildConfiguration.id)
             .limitResults(3)
             .all()
@@ -19,7 +19,7 @@ class TestsTest : TestBase() {
 
     @Test
     fun `test runs tests`() {
-        val tests = customInstance.builds()
+        val tests = teamCityInstance.builds()
             .fromConfiguration(testBuildConfiguration.id)
             .limitResults(3)
             .all()

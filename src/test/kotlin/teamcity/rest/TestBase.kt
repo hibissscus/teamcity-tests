@@ -8,7 +8,7 @@ import kotlin.test.assertTrue
 open class TestBase {
 
     protected lateinit var publicInstance: TeamCityInstance
-    protected lateinit var customInstance: TeamCityInstance
+    protected lateinit var teamCityInstance: TeamCityInstance
 
     @BeforeSuite
     open fun beforeSuite() {
@@ -20,6 +20,6 @@ open class TestBase {
         setupLog4jDebug()
         assertTrue(haveCustomInstance())
         publicInstance = publicInstance()
-        customInstance = customInstanceByConnectionFile()
+        teamCityInstance = customInstanceByConnectionFile()
     }
 }
