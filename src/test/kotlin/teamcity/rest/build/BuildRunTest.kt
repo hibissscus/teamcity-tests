@@ -10,7 +10,7 @@ import kotlin.test.assertTrue
 
 
 @Test(groups = ["build"])
-class BuildRunTestBase : BuildTestBase() {
+class BuildRunTest : BuildTestBase() {
 
     @Test
     fun `run build`() {

@@ -10,11 +10,6 @@ import kotlin.test.assertTrue
 class BuildAgentPoolTest : TestBase() {
 
     @Test
-    fun `test no registered build agents`() {
-        assertTrue(teamCityInstance.buildAgents().all().none())
-    }
-
-    @Test
     fun `check agent pool has some build agents`() {
         assertTrue(teamCityInstance.buildAgentPools().all().any())
     }

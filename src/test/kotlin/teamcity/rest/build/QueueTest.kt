@@ -5,7 +5,7 @@ import org.testng.annotations.Test
 import kotlin.test.assertEquals
 
 @Test(groups = ["build"])
-class QueueTestBase : BuildTestBase() {
+class QueueTest : BuildTestBase() {
 
     @Test
     fun `test new build gets into queue`() {
