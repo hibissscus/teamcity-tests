@@ -8,6 +8,7 @@ import teamcity.rest.customInstanceByConnectionFile
 import teamcity.rest.haveCustomInstance
 import kotlin.test.assertTrue
 
+@Test(groups = ["build"])
 class BuildProblemTest : TestBase() {
 
     private lateinit var instance: TeamCityInstance

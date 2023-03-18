@@ -11,7 +11,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class BuildTest : TestBase() {
+class BuildRun : TestBase() {
 
     @Test
     fun `test to string`() {

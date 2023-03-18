@@ -42,6 +42,7 @@ data class Project(
 )
 
 
+val testBuildAgentPool = "TestBuildAgentPool"
 val rootProjectId = ProjectId("_Root")
 val testProject = Project(1, ProjectId("TeamcityTests"), "Teamcity Tests", false, rootProjectId)
 val rootProject = Project(0, rootProjectId, "<Root project>", false, null, listOf(testProject))
