@@ -1,28 +1,18 @@
 package teamcity.rest.build
 
-import org.jetbrains.teamcity.rest.BuildId
-import org.jetbrains.teamcity.rest.TeamCityInstance
+import org.jetbrains.teamcity.rest.BuildState
 import org.testng.annotations.Test
-import teamcity.rest.TestBase
-import teamcity.rest.customInstanceByConnectionFile
-import teamcity.rest.haveCustomInstance
 import kotlin.test.assertTrue
 
 @Test(groups = ["build"])
-class BuildProblemTest : TestBase() {
-
-    private lateinit var instance: TeamCityInstance
-
-    override fun beforeClass() {
-        super.beforeClass()
-        assertTrue(haveCustomInstance())
-        instance = customInstanceByConnectionFile()
-    }
+class BuildProblemTest : BuildTestBase() {
 
     @Test
     fun `fetch problems`() {
-        val buildProblems = instance.build(BuildId("9")).buildProblems
-        println(buildProblems.joinToString("\n"))
+        val defaultBuildRunError = defaultBuildRunError()
+        awaitState(defaultBuildRunError.id, BuildState.FINISHED, 30000L)
+        val buildProblems = teamCityInstance.build(defaultBuildRunError.id).buildProblems
+        assertTrue(buildProblems.any())
     }
 }
 

@@ -20,7 +20,7 @@ class BuildRunTest : BuildTestBase() {
     }
 
     @Test
-    fun `run build and get info`() {
+    fun `run build and verify info`() {
         val triggeredBuild = defaultBuildRun()
         assertEquals(testBuildRunConfiguration.name, triggeredBuild.name)
         assertEquals(null, triggeredBuild.canceledInfo)
@@ -42,7 +42,6 @@ class BuildRunTest : BuildTestBase() {
         assertNotNull(triggeredBuild.canceledInfo)
         assertEquals(testUserHibissscus.username, triggeredBuild.canceledInfo?.user?.username)
     }
-
 
     @Test
     fun `run build and finishing`() {

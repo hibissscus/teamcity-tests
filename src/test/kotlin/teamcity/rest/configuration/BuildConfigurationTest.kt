@@ -1,16 +1,21 @@
 package teamcity.rest.configuration
 
 import org.testng.annotations.Test
-import teamcity.rest.TestBase
-import teamcity.rest.changesBuildConfiguration
-import teamcity.rest.pausedBuildConfiguration
-import teamcity.rest.publicInstanceUrl
+import teamcity.rest.*
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @Test(groups = ["configuration"])
 class BuildConfigurationTest : TestBase() {
+
+    @Test
+    fun `build configuration by id`() {
+        val configuration = teamCityInstance.buildConfiguration(testBuildConfiguration.id)
+        assertEquals(testBuildConfiguration.id, configuration.id)
+        assertEquals("Run Tests", configuration.name)
+        assertEquals(testProject.id, configuration.projectId)
+    }
 
     @Test
     fun `paused configuration has paused parameter`() {

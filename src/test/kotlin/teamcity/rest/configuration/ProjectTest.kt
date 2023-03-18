@@ -20,14 +20,6 @@ class ProjectTest : TestBase() {
     }
 
     @Test
-    fun `build configuration by id`() {
-        val configuration = teamCityInstance.buildConfiguration(testBuildConfiguration.id)
-        assertEquals(testBuildConfiguration.id, configuration.id)
-        assertEquals("Run Tests", configuration.name)
-        assertEquals(testProject.id, configuration.projectId)
-    }
-
-    @Test
     fun `web url with default parameters`() {
         val project = teamCityInstance.project(testProject.id)
         assertEquals(
