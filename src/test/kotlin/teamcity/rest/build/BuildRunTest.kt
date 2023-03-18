@@ -7,66 +7,69 @@ import org.jetbrains.teamcity.rest.BuildStatus
 import org.testng.annotations.Test
 import teamcity.rest.TestBase
 import teamcity.rest.testBuildRunConfiguration
+import teamcity.rest.testUserHibissscus
+import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 
 class BuildRunTest : TestBase() {
 
     @Test
     fun `run build`() {
-        val build = customBuildRun()
-        println(build)
+        val defaultBuildRun = defaultBuildRun()
+        val buildById = getBuildById(defaultBuildRun.id)
+        assertEquals(defaultBuildRun, buildById)
     }
 
     @Test
     fun `run build and get info`() {
-        val triggeredBuild = customBuildRun()
-        println(triggeredBuild.name)
-        println(triggeredBuild.canceledInfo)
+        val triggeredBuild = defaultBuildRun()
+        assertEquals(testBuildRunConfiguration.name, triggeredBuild.name)
+        assertEquals(null, triggeredBuild.canceledInfo)
     }
 
     @Test
     fun `run build with parameters`() {
         val triggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
-            parameters = mapOf("a" to "b"),
-            agentId = null, revisions = null, dependencies = null
+            parameters = mapOf("a" to "b"), agentId = null, revisions = null, dependencies = null
         )
-        triggeredBuild.parameters.forEach { println("${it.name}=${it.value}") }
+        assertTrue(getBuildById(triggeredBuild.id).parameters.any { p -> p.name == "a" && p.value == "b" })
     }
 
     @Test
     fun `trigger build and cancel`() {
-        val triggeredBuild = customBuildRun()
+        val triggeredBuild = defaultBuildRun()
         triggeredBuild.cancel(comment = "cancel")
         awaitState(triggeredBuild.id, BuildState.FINISHED, 30000L)
         assertNotNull(triggeredBuild.canceledInfo)
+        assertEquals(testUserHibissscus.username, triggeredBuild.canceledInfo?.user?.username)
     }
 
 
     @Test
     fun `run build and finishing`() {
-        val triggeredBuild = customBuildRun()
+        val triggeredBuild = defaultBuildRun()
         val build = awaitState(triggeredBuild.id, BuildState.FINISHED, 30000L)
-        println(build)
-        println(build.state)
+        assertEquals("SUCCESS", build.status?.name)
+        assertEquals("FINISHED", build.state.name)
     }
 
     @Test
     fun `trigger build from other build`() {
         val triggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
-            parameters = mapOf("a" to "b"),
-            agentId = null, revisions = null, dependencies = null
+            parameters = mapOf("a" to "b"), agentId = null, revisions = null, dependencies = null
         )
-        val build = getBuild(triggeredBuild.id)
+        val build = getBuildById(triggeredBuild.id)
 
         val newTriggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
-            parameters = build.parameters.associate { it.name to it.value },
-            agentId = null, revisions = null, dependencies = null
+            parameters = build.parameters.associate { it.name to it.value }, agentId = null, revisions = null, dependencies = null
         )
 
         val newBuild = awaitState(newTriggeredBuild.id, BuildState.FINISHED, 30000L)
-        println(newBuild)
-        newBuild.parameters.forEach { println("${it.name}=${it.value}") }
+        assertEquals("SUCCESS", newBuild.status?.name)
+        assertEquals("FINISHED", newBuild.state.name)
+        assertTrue(newBuild.parameters.any { p -> p.name == "a" && p.value == "b" })
     }
 
     private fun awaitState(id: BuildId, buildState: BuildState, timeoutMsec: Long): Build {
@@ -87,13 +90,12 @@ class BuildRunTest : TestBase() {
         return b!!
     }
 
-    private fun customBuildRun(): Build {
-        return teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(null, false, null, false, null, null, null, false, null, null)
-
+    private fun defaultBuildRun(): Build {
+        return teamCityInstance.buildConfiguration(testBuildRunConfiguration.id)
+            .runBuild(null, false, null, false, null, null, null, false, null, null)
     }
 
-    private fun getBuild(id: BuildId): Build {
-        // get build by build id
+    private fun getBuildById(id: BuildId): Build {
         var flag = false
         var buildStatus: BuildStatus? = null
         var b: Build? = null
