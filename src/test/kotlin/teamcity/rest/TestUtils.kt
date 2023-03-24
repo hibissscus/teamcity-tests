@@ -23,8 +23,7 @@ fun setupLog4jDebug() {
 
 fun publicInstance() = TeamCityInstanceFactory.guestAuth(publicInstanceUrl).withLogResponses()
 
-fun customInstance(serverUrl: String, token: String) =
-    TeamCityInstanceFactory.tokenAuth(serverUrl, token).withLogResponses()
+fun customInstance(serverUrl: String, token: String) = TeamCityInstanceFactory.tokenAuth(serverUrl, token).withLogResponses()
 
 fun haveCustomInstance(): Boolean = ConnectionPropertiesFileLoader(teamcityConnectionFilePath).validate()
 
@@ -56,8 +55,7 @@ internal class ConnectionPropertiesFileLoader(filePath: String) {
         val connectionProperties = Properties()
         connectionProperties.load(connectionFile?.let { FileInputStream(it) })
         return ConnectionConfig(
-            connectionProperties.getProperty(SERVER_URL),
-            connectionProperties.getProperty(TOKEN)
+            connectionProperties.getProperty(SERVER_URL), connectionProperties.getProperty(TOKEN)
         )
     }
 

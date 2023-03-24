@@ -2,6 +2,8 @@ package teamcity.rest.build
 
 import org.jetbrains.teamcity.rest.BuildState
 import org.testng.annotations.Test
+import teamcity.rest.publicInstance
+import teamcity.rest.testBuildRunErrorConfiguration
 import kotlin.test.assertTrue
 
 @Test(groups = ["build"])

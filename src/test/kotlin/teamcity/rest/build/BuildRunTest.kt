@@ -2,8 +2,7 @@ package teamcity.rest.build
 
 import org.jetbrains.teamcity.rest.BuildState
 import org.testng.annotations.Test
-import teamcity.rest.testBuildRunConfiguration
-import teamcity.rest.testUserHibissscus
+import teamcity.rest.*
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -57,14 +56,38 @@ class BuildRunTest : BuildTestBase() {
             parameters = mapOf("a" to "b"), agentId = null, revisions = null, dependencies = null
         )
         val build = getBuildById(triggeredBuild.id)
-
         val newTriggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
             parameters = build.parameters.associate { it.name to it.value }, agentId = null, revisions = null, dependencies = null
         )
-
         val newBuild = awaitState(newTriggeredBuild.id, BuildState.FINISHED, 30000L)
         assertEquals("SUCCESS", newBuild.status?.name)
         assertEquals("FINISHED", newBuild.state.name)
         assertTrue(newBuild.parameters.any { p -> p.name == "a" && p.value == "b" })
+    }
+
+    @Test
+    fun `build has revisions`() {
+        val triggeredBuild = defaultBuildRun()
+        awaitState(triggeredBuild.id, BuildState.FINISHED, 30000L)
+        teamCityInstance.builds()
+            .fromConfiguration(testBuildRunConfiguration.id)
+            .limitResults(10)
+            .all()
+            .forEach {
+                val revisions = it.revisions
+                assertTrue(revisions.isNotEmpty())
+            }
+    }
+
+    @Test
+    fun `build has log web url`() {
+        val triggeredBuild = defaultBuildRun()
+        awaitState(triggeredBuild.id, BuildState.FINISHED, 30000L)
+        val build = teamCityInstance.builds()
+            .fromConfiguration(testBuildRunConfiguration.id)
+            .limitResults(1)
+            .all().first()
+
+        assertEquals("${teamCityInstance.serverUrl}/viewLog.html?buildId=${build.id.stringId}", build.getHomeUrl())
     }
 }

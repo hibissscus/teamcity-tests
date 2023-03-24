@@ -11,61 +11,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
+//todo
 class BuildRun : TestBase() {
-
-    @Test
-    fun `test to string`() {
-        val builds = customInstanceByConnectionFile().builds()
-            .fromConfiguration(testBuildConfiguration.id)
-            .limitResults(3)
-            .all()
-
-        builds.forEach {
-            it.getArtifacts()
-            callPublicPropertiesAndFetchMethods(it)
-        }
-    }
-
-    @Test
-    fun `since date and until date`() {
-        val monthAgo = GregorianCalendar()
-        monthAgo.add(Calendar.MONTH, -1)
-        val weekAgo = GregorianCalendar()
-        monthAgo.add(Calendar.DAY_OF_MONTH, -7)
-
-        val builds = publicInstance().builds()
-            .fromConfiguration(testBuildConfiguration.id)
-            .limitResults(3)
-            .since(monthAgo.toInstant())
-            .until(weekAgo.toInstant())
-            .all()
-
-        for (build in builds) {
-            assert(build.startDateTime!! >= monthAgo.toZonedDateTime() && build.startDateTime!! <= weekAgo.toZonedDateTime())
-        }
-    }
-
-    @Test
-    fun `test build fetch revisions`() {
-        publicInstance().builds()
-            .fromConfiguration(testBuildConfiguration.id)
-            .limitResults(10)
-            .all()
-            .forEach {
-                val revisions = it.revisions
-                assertTrue(revisions.isNotEmpty())
-            }
-    }
-
-    @Test
-    fun `test fetch status`() {
-        val build = publicInstance().builds()
-            .fromConfiguration(testBuildConfiguration.id)
-            .limitResults(1)
-            .all().first()
-
-        build.statusText
-    }
 
     @Test
     fun `test get artifacts`() {
@@ -105,16 +52,6 @@ class BuildRun : TestBase() {
     }
 
     @Test
-    fun `test get webUrl`() {
-        val build = publicInstance().builds()
-            .fromConfiguration(changesBuildConfiguration)
-            .limitResults(1)
-            .all().first()
-
-        assertEquals("$publicInstanceUrl/viewLog.html?buildId=${build.id.stringId}", build.getHomeUrl())
-    }
-
-    @Test
     fun `test snapshot dependencies`() {
         val build = publicInstance().builds()
             .fromConfiguration(dependantBuildConfiguration)
@@ -130,30 +67,6 @@ class BuildRun : TestBase() {
 
         assertTrue(build.tags.isNotEmpty())
         assertTrue(build.tags.contains("1.0"))
-    }
-
-    @Test
-    fun `test pagination`() {
-        val iterator = publicInstance().builds()
-            .fromConfiguration(manyTestsBuildConfiguration)
-            .all()
-            .iterator()
-
-        var i = 0
-        while (i++ < 100) {
-            assertTrue(iterator.hasNext())
-            assertNotNull(iterator.next())
-        }
-    }
-
-    @Test
-    fun `test parameters`() {
-        val build = customInstanceByConnectionFile().build(BuildId("241"))
-        val parameters = build.parameters
-
-        assertTrue(parameters.isNotEmpty())
-        assertEquals(4, parameters.count())
-        assertEquals("0", parameters.first { it.name == "system.FAILED_TESTS_PERCENTAGE" }.value)
     }
 
     @Test

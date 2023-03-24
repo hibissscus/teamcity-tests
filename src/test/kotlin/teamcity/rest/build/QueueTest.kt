@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 class QueueTest : BuildTestBase() {
 
     @Test
-    fun `test new build gets into queue`() {
+    fun `new build gets into queue`() {
         val defaultBuildRun = defaultBuildRun()
         awaitState(defaultBuildRun.id, BuildState.QUEUED, 30000L)
         teamCityInstance.buildQueue().queuedBuilds().forEach {
@@ -18,7 +18,7 @@ class QueueTest : BuildTestBase() {
     }
 
     @Test
-    fun `test specific project gets into queue`() {
+    fun `specific project gets into queue`() {
         val defaultBuildRun = defaultBuildRun()
         awaitState(defaultBuildRun.id, BuildState.QUEUED, 30000L)
         teamCityInstance.buildQueue().queuedBuilds(testProject.id).forEach {
