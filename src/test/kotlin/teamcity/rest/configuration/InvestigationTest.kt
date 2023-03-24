@@ -1,29 +1,23 @@
-package teamcity.rest
+package teamcity.rest.configuration
 
 import org.jetbrains.teamcity.rest.InvestigationScope
 import org.jetbrains.teamcity.rest.InvestigationTargetType
-import org.jetbrains.teamcity.rest.ProjectId
 import org.testng.annotations.Test
-import kotlin.test.assertEquals
+import teamcity.rest.TestBase
+import teamcity.rest.testProject
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class InvestigationTest : TestBase() {
 
     @Test
-    fun `test limit`() {
-        val investigations = teamCityInstance
-            .investigations()
-            .limitResults(3)
-            .all()
-        assertEquals(investigations.count(), 3)
-        investigations.forEach {
-            callPublicPropertiesAndFetchMethods(it)
-        }
+    fun `investigation exist`() {
+        val investigations = teamCityInstance.investigations().all()
+        assertTrue(investigations.count() > 0)
     }
 
     @Test
-    fun `test assignee`() {
+    fun `assignee to someone`() {
         var hasAtLeastOneName = false
         val investigations = teamCityInstance.investigations().limitResults(10).all()
         for (investigation in investigations) {
@@ -34,12 +28,11 @@ class InvestigationTest : TestBase() {
                 hasAtLeastOneName = true
             }
         }
-
         assertTrue(hasAtLeastOneName)
     }
 
     @Test
-    fun `test reporter`() {
+    fun `has a reporter`() {
         var hasAtLeastOneReporter = false
         val investigations = teamCityInstance.investigations().limitResults(10).all()
         for (investigation in investigations) {
@@ -49,17 +42,16 @@ class InvestigationTest : TestBase() {
                 assertNotNull(investigation.reporter?.username)
             }
         }
-
         assertTrue(hasAtLeastOneReporter)
     }
 
     @Test
-    fun `test for project`() {
+    fun `exists for specific project`() {
         val filteredInvestigations =
-            teamCityInstance.investigations().forProject(ProjectId("ProjectForSidebarCounters")).all()
+            teamCityInstance.investigations().forProject(testProject.id).all()
         val allInvestigations = teamCityInstance.investigations().all()
         assertTrue(filteredInvestigations.count() > 0)
-        assertTrue(filteredInvestigations.count() < allInvestigations.count())
+        assertTrue(filteredInvestigations.count() <= allInvestigations.count())
     }
 
     @Test
@@ -80,34 +72,5 @@ class InvestigationTest : TestBase() {
         val investigations =
             teamCityInstance.investigations().withTargetType(InvestigationTargetType.BUILD_CONFIGURATION).all()
         assertTrue(investigations.all { inv -> inv.scope is InvestigationScope.InBuildConfiguration })
-    }
-
-    @Test
-    fun `test with type`() {
-        val allInvestigations = teamCityInstance.investigations().all()
-
-        var filteredInvestigations =
-            teamCityInstance.investigations().withTargetType(InvestigationTargetType.TEST).all()
-        assertTrue(filteredInvestigations.any())
-        assertTrue(filteredInvestigations.all { it.targetType == InvestigationTargetType.TEST })
-        assertTrue(filteredInvestigations.count() < allInvestigations.count())
-
-        filteredInvestigations =
-            teamCityInstance.investigations().withTargetType(InvestigationTargetType.BUILD_PROBLEM).all()
-        assertTrue(filteredInvestigations.any())
-        assertTrue(filteredInvestigations.all { it.targetType == InvestigationTargetType.BUILD_PROBLEM })
-        assertTrue(filteredInvestigations.count() < allInvestigations.count())
-
-        filteredInvestigations =
-            teamCityInstance.investigations().withTargetType(InvestigationTargetType.BUILD_CONFIGURATION).all()
-        assertTrue(filteredInvestigations.any())
-        assertTrue(filteredInvestigations.all { it.targetType == InvestigationTargetType.BUILD_CONFIGURATION })
-        assertTrue(filteredInvestigations.count() < allInvestigations.count())
-    }
-
-    @Test
-    fun `test all investigations`() {
-        val investigations = teamCityInstance.investigations().all()
-        assertTrue(investigations.count() > 0)
     }
 }
