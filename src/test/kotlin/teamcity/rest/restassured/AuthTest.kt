@@ -3,7 +3,7 @@ package teamcity.rest.restassured
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import org.hamcrest.Matchers.lessThan
-import org.testng.annotations.BeforeTest
+import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 import teamcity.rest.TestBase
 import teamcity.ui.model.User
@@ -12,7 +12,7 @@ import teamcity.ui.model.User
 @Test(groups = ["rest"])
 class AuthTest : TestBase() {
 
-    @BeforeTest
+    @BeforeMethod
     fun setup() {
         RestAssured.baseURI = teamCityInstance.serverUrl
         RestAssured.port = 443

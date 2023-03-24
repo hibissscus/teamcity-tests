@@ -2,7 +2,8 @@ package teamcity.rest.build
 
 import org.jetbrains.teamcity.rest.BuildState
 import org.testng.annotations.Test
-import teamcity.rest.*
+import teamcity.rest.testBuildRunConfiguration
+import teamcity.rest.testUserHibissscus
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue

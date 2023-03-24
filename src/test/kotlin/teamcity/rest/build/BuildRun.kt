@@ -5,10 +5,11 @@ import org.assertj.core.api.Assertions.catchThrowable
 import org.jetbrains.teamcity.rest.BuildId
 import org.jetbrains.teamcity.rest.TeamCityQueryException
 import org.testng.annotations.Test
-import teamcity.rest.*
-import java.util.*
+import teamcity.rest.TestBase
+import teamcity.rest.customInstanceByConnectionFile
+import teamcity.rest.dependantBuildConfiguration
+import teamcity.rest.publicInstance
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 //todo
