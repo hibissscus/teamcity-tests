@@ -1,4 +1,4 @@
-package teamcity.rest.restassured
+package teamcity.rest.configuration
 
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
