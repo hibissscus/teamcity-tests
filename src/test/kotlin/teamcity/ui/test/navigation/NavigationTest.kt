@@ -20,7 +20,6 @@ class NavigationTest : UITestBase() {
 
     @BeforeClass
     fun setUp() {
-        this.selenide()
         open(baseUrl)
         loginPage.login(User.KING)
     }

@@ -12,10 +12,18 @@
             <package name="teamcity.rest.configuration"/>
         </packages>
     </test>
-    <test parallel="classes" name="teamcity.ui" thread-count="2">
+    <test parallel="classes" name="teamcity.ui.login" thread-count="1">
         <packages>
             <package name="teamcity.ui.test.login"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="teamcity.ui.admin" thread-count="1">
+        <packages>
             <package name="teamcity.ui.test.admin"/>
+        </packages>
+    </test>
+    <test parallel="classes" name="teamcity.ui.navigation" thread-count="1">
+        <packages>
             <package name="teamcity.ui.test.navigation"/>
         </packages>
     </test>

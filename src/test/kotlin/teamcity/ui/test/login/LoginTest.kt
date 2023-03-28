@@ -20,7 +20,6 @@ class LoginTest : UITestBase() {
 
     @BeforeClass
     fun beforeClass() {
-        this.selenide()
         open(baseUrl)
     }
 

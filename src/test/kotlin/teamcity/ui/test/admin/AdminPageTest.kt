@@ -18,7 +18,6 @@ class AdminPageTest : UITestBase() {
 
     @BeforeClass
     fun setUp() {
-        this.selenide()
         open(Configuration.baseUrl)
         loginPage.login(User.KING)
     }
