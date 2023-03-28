@@ -104,7 +104,7 @@ API should be tested to be sure it's reliable for public use.
     - test result report link can be found in the terminal log ![docker-run.png](readme/docker-run.png)
     - `html` report can be opened via any browser ![report-docker.png](readme/report-docker.png)
 
-## How see the test report
+## How to see the test report
 
 1. Allure report locally:
     - ``./gradlew test``
