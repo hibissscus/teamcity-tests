@@ -2,7 +2,7 @@ import org.gradle.internal.os.OperatingSystem
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.8.20-Beta"
+    id("org.jetbrains.kotlin.jvm") version "1.8.21"
     id("com.avast.gradle.docker-compose") version ("0.16.11")
     id("io.qameta.allure") version ("2.11.2")
 }
@@ -54,6 +54,7 @@ dependencies {
     testImplementation("io.qameta.allure:allure-generator:${allureVersion}")
     testImplementation("io.qameta.allure:allure-httpclient:${allureVersion}")
     testImplementation("io.qameta.allure:allure-selenide:$allureVersion")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 

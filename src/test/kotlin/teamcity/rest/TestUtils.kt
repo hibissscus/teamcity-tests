@@ -11,7 +11,7 @@ import kotlin.reflect.KProperty
 import kotlin.reflect.full.valueParameters
 
 const val teamcityConnectionFilePath = "teamcity_connection.properties"
-const val publicInstanceUrl = "https://tests.teamcity.com"
+const val publicInstanceUrl = "https://e2e.teamcity.com"
 
 fun setupLog4jDebug() {
     LogManager.resetConfiguration()
@@ -32,7 +32,7 @@ fun customInstanceByConnectionFile(): TeamCityInstance {
     return if (connectionPropertiesFileLoader.validate()) {
         val connectionConfig = connectionPropertiesFileLoader.fetch()
         customInstance(
-            connectionConfig.serverUrl, connectionConfig.token
+                connectionConfig.serverUrl, connectionConfig.token
         )
     } else {
         publicInstance()
@@ -55,7 +55,7 @@ internal class ConnectionPropertiesFileLoader(filePath: String) {
         val connectionProperties = Properties()
         connectionProperties.load(connectionFile?.let { FileInputStream(it) })
         return ConnectionConfig(
-            connectionProperties.getProperty(SERVER_URL), connectionProperties.getProperty(TOKEN)
+                connectionProperties.getProperty(SERVER_URL), connectionProperties.getProperty(TOKEN)
         )
     }
 
@@ -68,7 +68,7 @@ internal class ConnectionPropertiesFileLoader(filePath: String) {
 
     private fun validateConnectionProperties(connectionProperties: Properties): Boolean {
         return validPropertyValue(connectionProperties.getProperty(SERVER_URL)) && validPropertyValue(
-            connectionProperties.getProperty(TOKEN)
+                connectionProperties.getProperty(TOKEN)
         )
     }
 

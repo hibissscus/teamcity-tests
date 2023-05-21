@@ -3,7 +3,7 @@ package teamcity.ui.pages.admin
 import com.codeborne.selenide.Selenide.element
 import org.openqa.selenium.By
 
-// page_url = https://tests.teamcity.com/admin/admin.html
+// page_url = https://e2e.teamcity.com/admin/admin.html
 class AdminPage {
     val pageUrl = "/admin/admin.html"
 

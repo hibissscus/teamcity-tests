@@ -12,12 +12,12 @@ open class BuildTestBase : TestBase() {
 
     fun defaultBuildRun(): Build {
         return teamCityInstance.buildConfiguration(testBuildRunConfiguration.id)
-            .runBuild(null, false, null, false, null, null, null, false, null, null)
+                .runBuild(null, false, null, false, null, null, null, false, null, null)
     }
 
     fun defaultBuildRunError(): Build {
         return teamCityInstance.buildConfiguration(testBuildRunErrorConfiguration.id)
-            .runBuild(null, false, null, false, null, null, null, false, null, null)
+                .runBuild(null, false, null, false, null, null, null, false, null, null)
     }
 
     fun awaitState(id: BuildId, buildState: BuildState, timeoutMsec: Long): Build {

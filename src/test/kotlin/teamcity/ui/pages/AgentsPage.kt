@@ -3,7 +3,7 @@ package teamcity.ui.pages
 import com.codeborne.selenide.Selectors.byTagAndText
 import com.codeborne.selenide.Selenide.element
 
-// page_url = https://tests.teamcity.com/agents
+// page_url = https://e2e.teamcity.com/agents
 class AgentsPage {
     val pageUrl = "/agents"
     val pools = element(byTagAndText("span", "POOLS"))

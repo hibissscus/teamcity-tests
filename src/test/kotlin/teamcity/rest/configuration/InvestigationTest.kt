@@ -48,7 +48,7 @@ class InvestigationTest : TestBase() {
     @Test
     fun `exists for specific project`() {
         val filteredInvestigations =
-            teamCityInstance.investigations().forProject(testProject.id).all()
+                teamCityInstance.investigations().forProject(testProject.id).all()
         val allInvestigations = teamCityInstance.investigations().all()
         assertTrue(filteredInvestigations.count() > 0)
         assertTrue(filteredInvestigations.count() <= allInvestigations.count())
@@ -63,14 +63,14 @@ class InvestigationTest : TestBase() {
     @Test
     fun `test assignment project for build problems investigations`() {
         val investigations =
-            teamCityInstance.investigations().withTargetType(InvestigationTargetType.BUILD_PROBLEM).all()
+                teamCityInstance.investigations().withTargetType(InvestigationTargetType.BUILD_PROBLEM).all()
         assertTrue(investigations.all { inv -> inv.scope is InvestigationScope.InProject })
     }
 
     @Test
     fun `test assignment project for build type`() {
         val investigations =
-            teamCityInstance.investigations().withTargetType(InvestigationTargetType.BUILD_CONFIGURATION).all()
+                teamCityInstance.investigations().withTargetType(InvestigationTargetType.BUILD_CONFIGURATION).all()
         assertTrue(investigations.all { inv -> inv.scope is InvestigationScope.InBuildConfiguration })
     }
 }

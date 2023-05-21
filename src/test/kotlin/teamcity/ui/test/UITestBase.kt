@@ -1,7 +1,6 @@
 package teamcity.ui.test
 
 import com.codeborne.selenide.Configuration
-import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.logevents.SelenideLogger
 import io.qameta.allure.selenide.AllureSelenide
 import org.testng.annotations.BeforeClass
@@ -14,11 +13,9 @@ open class UITestBase {
 
     @BeforeClass
     @Parameters("selenide.baseUrl", "selenide.remote", "selenide.headless")
-    fun selenide(
-        @Optional("https://tests.teamcity.com") optBaseUrl: String,
-        @Optional("") optRemote: String,
-        @Optional("false") optHeadless: String
-    ) {
+    fun selenide(@Optional("https://e2e.teamcity.com") optBaseUrl: String,
+                 @Optional("") optRemote: String,
+                 @Optional("false") optHeadless: String) {
         if (!Strings.isNullOrEmpty(optBaseUrl)) Configuration.baseUrl = optBaseUrl
         if (!Strings.isNullOrEmpty(optRemote)) Configuration.remote = optRemote
         if (!Strings.isNullOrEmpty(optHeadless)) Configuration.headless = optHeadless.toBoolean()

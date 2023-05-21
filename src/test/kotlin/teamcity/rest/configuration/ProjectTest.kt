@@ -22,8 +22,8 @@ class ProjectTest : TestBase() {
     fun `web url with default parameters`() {
         val project = teamCityInstance.project(testProject.id)
         assertEquals(
-            "$publicInstanceUrl/project.html?projectId=${testProject.id}",
-            project.getHomeUrl()
+                "$publicInstanceUrl/project.html?projectId=${testProject.id}",
+                project.getHomeUrl()
         )
     }
 
@@ -31,8 +31,8 @@ class ProjectTest : TestBase() {
     fun `web url with branch`() {
         val project = teamCityInstance.project(testProject.id)
         assertEquals(
-            "$publicInstanceUrl/project.html?projectId=${testProject.id}&branch=%3Cdefault%3E",
-            project.getHomeUrl(branch = "<default>")
+                "$publicInstanceUrl/project.html?projectId=${testProject.id}&branch=%3Cdefault%3E",
+                project.getHomeUrl(branch = "<default>")
         )
     }
 }

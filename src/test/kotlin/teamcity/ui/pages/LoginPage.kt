@@ -4,7 +4,7 @@ import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide.element
 import teamcity.ui.model.User
 
-// page_url = https://tests.teamcity.com/
+// page_url = https://e2e.teamcity.com/
 class LoginPage {
     val submitLogin = element("input[class$='loginButton']")
     val username = element("input[id='username']")

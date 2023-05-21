@@ -21,13 +21,13 @@ class AuthTest : TestBase() {
     @Test
     fun `basic auth`() {
         given()
-            .auth()
-            .preemptive()
-            .basic(User.KING.username, User.KING.password)
-            .get(teamCityInstance.serverUrl)
-            .then()
-            .statusCode(200)
-            .time(lessThan(5000L))
+                .auth()
+                .preemptive()
+                .basic(User.KING.username, User.KING.password)
+                .get(teamCityInstance.serverUrl)
+                .then()
+                .statusCode(200)
+                .time(lessThan(5000L))
     }
 
 }

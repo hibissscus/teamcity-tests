@@ -13,8 +13,8 @@ class BuildAgentTest : BuildTestBase() {
         val defaultBuildRun = defaultBuildRun()
         awaitState(defaultBuildRun.id, BuildState.RUNNING, 30000L)
         val compatibleAgents = teamCityInstance.buildAgents()
-            .compatibleWith(testBuildRunConfiguration.id)
-            .all()
+                .compatibleWith(testBuildRunConfiguration.id)
+                .all()
 
         assertTrue { compatibleAgents.any() }
     }

@@ -6,7 +6,7 @@ import com.codeborne.selenide.Selectors.byAttribute
 import com.codeborne.selenide.Selectors.byText
 import com.codeborne.selenide.Selenide.element
 
-// page_url = https://tests.teamcity.com/favorite/projects
+// page_url = https://e2e.teamcity.com/favorite/projects
 class ProjectPage {
     val pageUrl = "/favorite/projects"
     val allProjects = element(Selectors.byTagAndText("span", "All Projects"))

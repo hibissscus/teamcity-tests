@@ -29,7 +29,7 @@ class BuildRunTest : BuildTestBase() {
     @Test
     fun `run build with parameters`() {
         val triggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
-            parameters = mapOf("a" to "b"), agentId = null, revisions = null, dependencies = null
+                parameters = mapOf("a" to "b"), agentId = null, revisions = null, dependencies = null
         )
         assertTrue(getBuildById(triggeredBuild.id).parameters.any { p -> p.name == "a" && p.value == "b" })
     }
@@ -54,11 +54,11 @@ class BuildRunTest : BuildTestBase() {
     @Test
     fun `trigger build from other build`() {
         val triggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
-            parameters = mapOf("a" to "b"), agentId = null, revisions = null, dependencies = null
+                parameters = mapOf("a" to "b"), agentId = null, revisions = null, dependencies = null
         )
         val build = getBuildById(triggeredBuild.id)
         val newTriggeredBuild = teamCityInstance.buildConfiguration(testBuildRunConfiguration.id).runBuild(
-            parameters = build.parameters.associate { it.name to it.value }, agentId = null, revisions = null, dependencies = null
+                parameters = build.parameters.associate { it.name to it.value }, agentId = null, revisions = null, dependencies = null
         )
         val newBuild = awaitState(newTriggeredBuild.id, BuildState.FINISHED, 30000L)
         assertEquals("SUCCESS", newBuild.status?.name)
@@ -71,13 +71,13 @@ class BuildRunTest : BuildTestBase() {
         val triggeredBuild = defaultBuildRun()
         awaitState(triggeredBuild.id, BuildState.FINISHED, 30000L)
         teamCityInstance.builds()
-            .fromConfiguration(testBuildRunConfiguration.id)
-            .limitResults(10)
-            .all()
-            .forEach {
-                val revisions = it.revisions
-                assertTrue(revisions.isNotEmpty())
-            }
+                .fromConfiguration(testBuildRunConfiguration.id)
+                .limitResults(10)
+                .all()
+                .forEach {
+                    val revisions = it.revisions
+                    assertTrue(revisions.isNotEmpty())
+                }
     }
 
     @Test
@@ -85,9 +85,9 @@ class BuildRunTest : BuildTestBase() {
         val triggeredBuild = defaultBuildRun()
         awaitState(triggeredBuild.id, BuildState.FINISHED, 30000L)
         val build = teamCityInstance.builds()
-            .fromConfiguration(testBuildRunConfiguration.id)
-            .limitResults(1)
-            .all().first()
+                .fromConfiguration(testBuildRunConfiguration.id)
+                .limitResults(1)
+                .all().first()
 
         assertEquals("${teamCityInstance.serverUrl}/viewLog.html?buildId=${build.id.stringId}", build.getHomeUrl())
     }

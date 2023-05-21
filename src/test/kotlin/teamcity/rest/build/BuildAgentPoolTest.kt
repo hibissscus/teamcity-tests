@@ -22,6 +22,6 @@ class BuildAgentPoolTest : TestBase() {
     @Test
     fun `check agent pool assigned to the project`() {
         assertTrue(teamCityInstance.buildAgentPools().all()
-            .any { it -> it.name == "TestBuildAgentPool" && it.projects.any { it.name == testProject.name } })
+                .any { it -> it.name == "TestBuildAgentPool" && it.projects.any { it.name == testProject.name } })
     }
 }
